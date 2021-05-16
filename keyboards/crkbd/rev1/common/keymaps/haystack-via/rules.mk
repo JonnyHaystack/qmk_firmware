@@ -1,0 +1,21 @@
+MOUSEKEY_ENABLE      = yes    # Mouse keys
+EXTRAKEY_ENABLE      = yes    # Media keys etc
+RGBLIGHT_ENABLE      = yes    # Enable WS2812 RGB underlight
+#VIA_ENABLE           = yes    # Enable VIA
+OLED_DRIVER_ENABLE   = yes
+LTO_ENABLE           = yes
+NO_USB_STARTUP_CHECK = yes    # Workaround for freezing after resume
+WPM_ENABLE           = yes
+
+TAP_DANCE_ENABLE     = no
+STENO_ENABLE 				 = no
+BOOTMAGIC_ENABLE     = no
+TERMINAL_ENABLE      = no
+GRAVE_ESC_ENABLE     = no
+MAGIC_ENABLE         = no
+SPACE_CADET_ENABLE   = no
+KEY_LOCK_ENABLE      = no
+AUDIO_ENABLE         = no
+CONSOLE_ENABLE       = no
+VELOCIKEY_ENABLE 		 = no
+ENCODER_ENABLE       = no
