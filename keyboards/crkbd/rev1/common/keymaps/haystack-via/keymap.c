@@ -20,6 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 uint8_t current_wpm = 0;
 
+enum custom_keycodes {
+    MC_WSL = SAFE_RANGE,
+    MC_WSR,
+    MC_AF4,
+    MC_PND,
+};
+
 enum layers {
     _BASE,
     _NUMBERS,
@@ -30,7 +37,7 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x6_3(
+  [_BASE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -42,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [1] = LAYOUT_split_3x6_3(
+  [_NUMBERS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRNS,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -50,23 +57,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_NO,   KC_RCTL, KC_NO,   KC_NO,   KC_INS,  KC_SLCK,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, MO(3),  KC_TRNS,    KC_TRNS, KC_TRNS, TO(4)
+                                         KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, TO(4)
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [2] = LAYOUT_split_3x6_3(
+  [_SYMBOLS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRNS, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_TRNS, KC_PSCR, KC_NO,   KC_GRV,  KC_QUES, KC_PLUS,                      KC_EQL,  KC_LCBR, KC_RCBR, KC_SLSH, KC_TILD, KC_GRV,
+     KC_TRNS, KC_PSCR, MC_PND,  KC_GRV,  KC_QUES, KC_PLUS,                      KC_EQL,  KC_LCBR, KC_RCBR, KC_SLSH, KC_TILD, KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MINS,                      KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_PIPE, KC_NO,
+     KC_TRNS, KC_NO,   MC_WSL,  MC_WSR,  MC_AF4,  KC_MINS,                      KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_PIPE, KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         MO(5),   KC_TRNS, KC_TRNS,    KC_TRNS, MO(3),   KC_TRNS
+                                         MO(5),   KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [3] = LAYOUT_split_3x6_3(
+  [_SYSTEM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      RESET,   RGB_TOG, KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_BTN1, KC_BTN2, KC_NO,   KC_NO,   KC_NO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -78,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [4] = LAYOUT_split_3x6_3(
+  [_GAMING] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRNS, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -90,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [5] = LAYOUT_split_3x6_3(
+  [_FUNCTION] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -453,7 +460,7 @@ static void render_anim(void) {
 
     //assumes 1 frame prep stage
     void animation_phase(void) {
-        if (get_highest_layer(layer_state) == _SYSTEM) {
+        if (get_highest_layer(layer_state) != _BASE) {
             anim_frame_duration = 300;
             current_rtogi_frame = (current_rtogi_frame + 1) % RTOGI_FRAMES;
             oled_write_raw_P(rtogi[abs((RTOGI_FRAMES - 1) - current_rtogi_frame)], ANIM_SIZE);
@@ -566,3 +573,42 @@ void oled_task_user(void) {
 }
 
 #endif
+
+/* Macros */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MC_WSL:
+            if (record->event.pressed) {
+                register_code16(C(KC_APP));
+                tap_code16(KC_LEFT);
+                unregister_code16(C(KC_APP));
+            }
+            break;
+        case MC_WSR:
+            if (record->event.pressed) {
+                register_code16(C(KC_APP));
+                tap_code16(KC_RGHT);
+                unregister_code16(C(KC_APP));
+            }
+            break;
+        case MC_AF4:
+            if (record->event.pressed) {
+                tap_code16(A(KC_F4));
+            }
+            break;
+        case MC_PND:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_DOWN(X_LALT)
+                    SS_TAP(X_P1) SS_TAP(X_P5) SS_TAP(X_P6)
+                    SS_UP(X_LALT)
+                );
+            }
+            break;
+    }
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _NUMBERS, _SYMBOLS, _SYSTEM);
+}
