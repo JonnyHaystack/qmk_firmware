@@ -46,6 +46,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 //#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
+#define MOUSEKEY_DELAY 50
+#define MOUSEKEY_TIME_TO_MAX 10
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_INTERVAL 7
+
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 //#define DYNAMIC_KEYMAP_LAYER_COUNT 6
