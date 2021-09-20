@@ -1,0 +1,9 @@
+OLED_DRIVER_ENABLE  = yes
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
+MOUSEKEY_ENABLE      = yes    # Mouse keys
+EXTRAKEY_ENABLE      = yes    # Media keys etc
+#VIA_ENABLE           = yes    # Enable VIA
+LTO_ENABLE           = yes
+NO_USB_STARTUP_CHECK = yes    # Workaround for freezing after resume
+WPM_ENABLE           = yes
